@@ -1,5 +1,5 @@
 # java内存模型（Java Memery Model）
-<img src="src/docs/asciidoc/images/JMM.png" width="1108" height="475" alt=""/>
+![JMM](src/docs/asciidoc/images/JMM.png)
 
 1. `主内存`（线程间共享）：存放共享信息
 2. `工作内存`（线程间独立）：
