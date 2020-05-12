@@ -1,5 +1,5 @@
 # java内存模型（Java Memery Model）
-![JMM](JMM.png)
+![JMM](https://github.com/gitmyname/java-learning/blob/master/concurrency/jmm/JMM.png)
 
 1. `主内存`（线程间共享）：存放共享信息
 2. `工作内存`（线程间独立）：
@@ -30,6 +30,6 @@
 解决方案：
 1. 总线（数据总线）加锁。但会降低CPU的吞吐量
 2. 缓存一致性协议（MESI）
-   1. 当CPU在Cache中进行共享数据修改时，数据从内存读到Cache，再从Cache读到寄存器中，进行修改，并更新内存数据
-   2. 更新主内存诗句的同时，将所有Cache中对应的Cache line置无效，其他的CPU就从内存中读数据   
+   1. 当CPU在Cache中进行共享数据修改时，数据从内存读到Cache，再从Cache读到寄存器中，进行修改后，更新主内存数据
+   2. 更新主内存数据的同时，将所有Cache中对应的Cache line置无效，其他的CPU就从内存中读数据   
 
