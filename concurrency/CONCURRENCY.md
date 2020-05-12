@@ -1,7 +1,7 @@
 ## 并发专题
 * [Java内存模型（JMM）](jmm/JMM.md)
 * [synchronized原理](synchronized/SYNCHRONIZED.md)
-* volatile实现机制
+* [volatile实现机制](volatile/VOLATILE.md)
 * 单例模式
 * 并发基础-AQS、CAS
 * 并发集合

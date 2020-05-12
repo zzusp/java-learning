@@ -2,7 +2,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Aaron.Sun
- * @description 测试主方法
+ * @description 测试类
  * @date Created in 15:46 2020/5/12
  * @modified By
  */
