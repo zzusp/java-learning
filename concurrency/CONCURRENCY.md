@@ -2,7 +2,7 @@
 * [Java内存模型（JMM）](jmm/JMM.md)
 * [synchronized原理](synchronized/SYNCHRONIZED.md)
 * [volatile实现机制](volatile/VOLATILE.md)
-* 单例模式
+* [单例模式](singleton/SINGLETON.md)
 * 并发基础-AQS、CAS
 * 并发集合
 * 原子操作-基本类型
