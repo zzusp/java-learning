@@ -12,7 +12,7 @@ public class Main {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				while (!isOver) {
-					System.out.println(Thread.currentThread().getName() + " is runing");
+					System.out.println(Thread.currentThread().getName() + " is running");
 				}
 			}
 		});

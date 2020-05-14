@@ -5,5 +5,5 @@
 * [单例模式](singleton/SINGLETON.md)
 * [并发基础-AQS、CAS](cas-aps/CAS-AQS.md)
 * [并发工具](concurrency-tool/CONCURRENCY-TOOL.md)
-* 原子操作-基本类型
+* [线程](thread/THREAD.md)
 * 线程池

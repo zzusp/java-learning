@@ -14,7 +14,7 @@ public class Main {
 	public synchronized static void method1() {
 		try {
 			TimeUnit.SECONDS.sleep(2);
-			System.out.println(Thread.currentThread().getName() + " is runing");
+			System.out.println(Thread.currentThread().getName() + " is running");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -26,7 +26,7 @@ public class Main {
 	public synchronized void method2() {
 		try {
 			TimeUnit.SECONDS.sleep(2);
-			System.out.println(Thread.currentThread().getName() + " is runing");
+			System.out.println(Thread.currentThread().getName() + " is running");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -42,7 +42,7 @@ public class Main {
 				synchronized (this) {
 					TimeUnit.SECONDS.sleep(2);
 				}
-				System.out.println(Thread.currentThread().getName() + " is runing");
+				System.out.println(Thread.currentThread().getName() + " is running");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -58,7 +58,7 @@ public class Main {
 			// 该Class的所有的对象都共同使用这一个锁
 			try {
 				TimeUnit.SECONDS.sleep(2);
-				System.out.println(Thread.currentThread().getName() + " is runing");
+				System.out.println(Thread.currentThread().getName() + " is running");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
