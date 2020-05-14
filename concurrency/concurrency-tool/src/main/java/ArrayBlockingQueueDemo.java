@@ -12,7 +12,6 @@ public class ArrayBlockingQueueDemo {
 	private final static long CONSUMER_SPEED = 500;
 	private static ArrayBlockingQueue<String> messageList = new ArrayBlockingQueue<>(10);
 
-
 	static class Producer implements Runnable {
 
 		@Override
@@ -54,7 +53,5 @@ public class ArrayBlockingQueueDemo {
 		producer.start();
 		consumer.start();
 	}
-
-
 
 }
