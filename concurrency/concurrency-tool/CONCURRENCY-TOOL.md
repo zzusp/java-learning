@@ -80,6 +80,64 @@ java集合中的Queue继承collection接口，Dueue、LinkedList、PriorityQueue
 `LinkedBlockingQueue`、`PriorityBlockingQueue`、`DelayQueue`、`SynchronousQueue`和`LinkedBlockingDeque`。
 实质上阻塞队列是一种特殊的FIFO数据结构，它不是立即从队列中添加或删除元素，而是等到有空间或者元素可用的时候才操作。
 
+API
+```java
+public interface BlockingQueue<E> extends Queue<E> {
+    /**
+     * 如果可能，立即将指定的元素插入队列，而不会违反容量限制；如果成功，则返回true，如果当前没有可用空间，则抛出异常
+     * 使用容量受限的队列时，通常最好使用offer
+     */
+    boolean add(E e);
+    /**
+     * 如果可能，立即将指定的元素插入队列，而不会违反容量限制；如果成功，则返回true，如果当前没有可用空间，则返回false
+     * 使用容量受限的队列时，此方法优于add
+     */
+    boolean offer(E e);
+    /**
+     * 将指定的元素插入队列，如果队列容量已满，则排队等待资源释放，直到获取到资源、线程中断
+     */
+    void put(E e) throws InterruptedException;
+    /**
+     * 将指定的元素插入队列，如果队列容量已满，则排队等待资源释放，直到获取到资源、线程中断或等待超时
+     */
+    boolean offer(E e, long timeout, TimeUnit unit)
+            throws InterruptedException;
+    /**
+     * 检索并删除此队列的头部数据，如队列目前为空，则等待，直到队列中加入新数据为止
+     */
+    E take() throws InterruptedException;
+    /**
+     * 检索并删除此队列的头部数据，如队列目前为空，则等待，直到队列中加入新数据为止或等待超时
+     */
+    E poll(long timeout, TimeUnit unit)
+            throws InterruptedException;
+    /**
+     * 返回此队列可以不阻塞的添加元素数量的最大值（在没有内存或资源限制的情况下），
+     * 如果没有指定队列大小，则为Integer.MAX_VALUE
+     */
+    int remainingCapacity();
+    /**
+     * 从队列中删除指定元素的单个实例，如果队列包含指定元素，则返回true
+     * 判断是否包含使用equals()方法
+     */
+    boolean remove(Object o);
+    /**
+     * 从队列中是否包含指定元素的实例，如果队列包含指定元素，则返回true
+     * 判断是否包含使用equals()方法
+     */
+    public boolean contains(Object o);
+    /**
+     * 从队列中删除所有可用元素并添加它们到给定的集合。
+     * 此操作可能更多比重复轮询此队列更有效。
+     */
+    int drainTo(Collection<? super E> c);
+    /**
+     * 从队列中最多移除给定数量的可用元素并添加它们到给定的集合。
+     */
+    int drainTo(Collection<? super E> c, int maxElements);
+}
+```
+
 * `ArrayBlockingQueue`
 用数组实现的有界阻塞队列，默认情况下不保证线程公平的访问队列（按照阻塞的先后顺序访问队列），队列可用的时候，阻塞的线程都可以争
 夺队列的访问资格，当然也可以使用以下的构造方法创建一个公平的阻塞队列。
