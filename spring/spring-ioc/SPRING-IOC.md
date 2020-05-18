@@ -147,6 +147,6 @@ spring支持6种bean的作用域
 除了上述的初始化和销毁的回调，spring管理的对象也可以通过实现`Lifecycle`接口，在容器自身的生命周期的驱动下参与启动和关闭过程。
 
 配置生命周期的方式分为以下三种：
-1. 注释（`@PostConstruct` `@PreDestroy`）
+1. 注解（`@PostConstruct` `@PreDestroy`）
 2. 回调接口定义的方法（`afterPropertiesSet()` `destroy()`）
 3. 自定义配置方法（`init()` `destroy()`）
