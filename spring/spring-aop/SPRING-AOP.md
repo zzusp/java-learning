@@ -42,10 +42,10 @@ AOP框架是Spring核心组件之一。尽管Spring IoC容器并不依赖于AOP�
 * `After (finally) advice`：无论连接点退出的方式如何（正常或异常返回），都将执行。
 * `Around advice`：围绕联接点的建议，例如方法调用。这是最有力的建议。周围建议可以在方法调用之前和之后执行自定义行为。它还负责选择是返回连接点还是通过返回其自身的返回值或引发异常来捷径建议的方法执行。
 
-### Spring AOP动态代理的选取
-通过以下两种方式可以指定动态代理的方案：
+### Spring AOP代理模式的选取
+通过以下两种方式可以指定代理模式：
 * XML配置文件中的`<aop:aspectj-autoproxy/>`标签，其中的`proxy-target-class`属性，默认为false。
 * 注解配置类添加`@EnableAspectJAutoProxy`注解，其中的`proxyTargetClass`属性，默认为false。
 
-默认为false,表示使用JDK动态代理技术织入增强；当配置为true时，表示使用CGLIB动态代理技术织入增强。
-不过即使设置为false，如果目标类没有声明接口，则Spring将自动使用CGLIB动态代理。
+默认为false,表示使用JDK动态代理技术织入增强；当配置为true时，表示使用CGLIB代理技术织入增强。
+不过即使设置为false，如果目标类没有声明接口，则Spring将自动使用CGLIB代理。
