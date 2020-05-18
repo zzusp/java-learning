@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 开启@AspectJ注解
+	<aop:aspectj-autoproxy/>有一个proxy-target-class属性，默认为false,表示使用JDK动态代理技术织入增强；
+	当配置为<aop:aspectj-autoproxy proxy-target-class="true"/>时，表示使用CGLIB动态代理技术织入增强。
+	不过即使proxy-target-class设置为false，如果目标类没有声明接口，则Spring将自动使用CGLIB动态代理。 -->
+	<aop:aspectj-autoproxy/>
+	<aop:config>
+		<!-- 配置切点 -->
+		<aop:pointcut id="userServiceCut"
+					  expression="execution(* xml.service.impl.UserServiceImpl.*(..))"/>
+		<aop:pointcut id="studentServiceCut"
+					  expression="execution(* xml.service.impl.StudentServiceImpl.*(..))"/>
+		<!-- 配置切面 -->
+		<aop:aspect id="aspect" ref="userAspect">
+			<aop:before method="before" pointcut-ref="userServiceCut"/>
+			<aop:after method="after" pointcut-ref="userServiceCut"/>
+			<aop:after-returning method="afterReturning" pointcut-ref="userServiceCut" returning="retVal"/>
+			<aop:after-throwing method="afterThrowing" pointcut-ref="userServiceCut"/>
+			<aop:around method="around" pointcut-ref="studentServiceCut"/>
+		</aop:aspect>
+	</aop:config>
+	<bean id="userAspect" class="xml.aop.UserAspect"/>
+
+
+	<bean id="userService" class="xml.service.impl.UserServiceImpl">
+		<!-- 构造方法注入 -->
+		<constructor-arg ref="userDao"/>
+	</bean>
+	<bean id="studentService" class="xml.service.impl.StudentServiceImpl">
+		<!-- set方法注入 -->
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	<bean id="userDao" class="xml.dao.impl.UserDaoImpl"/>
+
+</beans>
