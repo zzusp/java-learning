@@ -1,7 +1,7 @@
 ## spring-ioc简介
 IoC也称为依赖注入（DI）。在此过程中，对象仅通过构造函数参数，工厂方法的参数或在构造或从工厂方法返回后在对象实例上设置的属性来
 定义其依赖项（即，与它们一起使用的其他对象）。然后，容器在创建bean时注入那些依赖项。此过程从根本上讲是通过使用类的直接构造或
-诸如服务定位器模式之类的方法来控制其依赖项的实例化或位置的bean本身的逆过程（因此称为Control Inversion）。
+诸如服务定位器模式之类的方法来控制其依赖项的实例化或位置的bean本身的逆过程（因此称为Inversion of Control）。
 
 在`org.springframework.beans`和`org.springframework.context`包是Spring框架的IoC容器的基础。该`BeanFactory`界面提供了一
 种高级配置机制，能够管理任何类型的对象。`ApplicationContext`是的子接口`BeanFactory`。它增加了：
@@ -149,4 +149,12 @@ spring支持6种bean的作用域
 配置生命周期的方式分为以下三种：
 1. 注解（`@PostConstruct` `@PreDestroy`）
 2. 回调接口定义的方法（`afterPropertiesSet()` `destroy()`）
-3. 自定义配置方法（`init()` `destroy()`）
+3. 自定义配置方法（`init-method` `destroy-method`）
+
+三种生命周期配置方式的调用先后顺序：
+1. 注解（`@PostConstruct`）
+2. 回调接口定义的方法（`afterPropertiesSet()`）
+3. 自定义配置方法（`init-method`）
+4. 回调接口定义的方法（`destroy()`）
+5. 自定义配置方法（`destroy-method`）
+6. 注解（`@PreDestroy`）

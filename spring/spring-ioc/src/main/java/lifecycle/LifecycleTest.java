@@ -2,7 +2,6 @@ package lifecycle;
 
 import lifecycle.config.AppConfig;
 import lifecycle.service.UserService;
-import lifecycle.service.impl.StudentServiceImpl;
 import lifecycle.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -19,8 +18,6 @@ public class LifecycleTest {
 		// 通过name获取bean
 		UserService userService = context.getBean(UserServiceImpl.class);
 		System.out.println(userService.findByName("张三"));
-		UserService studentService = context.getBean(StudentServiceImpl.class);
-		System.out.println(studentService.findByName("李四"));
 		context.getBeanFactory().destroySingletons();
 	}
 

@@ -38,9 +38,15 @@ Spring中的预定义`BeanFactoryPostProcessor`：
 3. 实例化`bean`，实例化时使用的配置元数据是未修改之前的！
 4. 取出修改后的配置元数据，通过setter方法，修改实例化后`bean`对象中对应的属性
 5. 调用`BeanPostProcessor`中`postProcessBeforeInitialization()`方法
-6. 调用生命周期初始化方法（如`InitializingBean.afterPropertiesSet()`、`@PostConstruct`或任何声明的`init`方法）
+6. 调用生命周期初始化方法（如`InitializingBean.afterPropertiesSet()`、`@PostConstruct`或任何声明的`init-method`）
+    1. 注解（`@PostConstruct`）
+    2. 回调接口定义的方法（`afterPropertiesSet()`）
+    3. 自定义配置方法（`init-method`）
 7. 调用`BeanPostProcessor`中`postProcessAfterInitialization()`方法
-8. `bean`实例销毁时，调用生命周期销毁方法（如`InitializingBean.destroy()`、`@PreDestroy`或任何声明的`destroy`方法）
+8. `bean`实例销毁时，调用生命周期销毁方法（如`InitializingBean.destroy()`、`@PreDestroy`或任何声明的`destroy-method`）
+    1. 回调接口定义的方法（`destroy()`）
+    2. 自定义配置方法（`destroy-method`）
+    3. 注解（`@PreDestroy`）
 
 ## `FactoryBean`自定义实例化逻辑（Customizing Instantiation Logic with a `FactoryBean`）
 您可以实现`org.springframework.beans.factory.FactoryBean`接口，实现类可作为对象的工厂。

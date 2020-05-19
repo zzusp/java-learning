@@ -4,7 +4,6 @@ import lifecycle.dao.UserDao;
 import lifecycle.service.UserService;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Service;
 
 /**
  * @author Aaron.Sun
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
  * @date Created in 11:48 2020/5/15
  * @modified By
  */
-@Service
 public class UserServiceImpl implements UserService, InitializingBean, DisposableBean {
 
 	private final UserDao userDao;
@@ -29,6 +27,14 @@ public class UserServiceImpl implements UserService, InitializingBean, Disposabl
 	public String findByName(String name) {
 		System.out.println(userDao);
 		return userDao.findByName(name);
+	}
+
+	public void init() {
+		System.out.println("自定义配置方法--初始化--init-method");
+	}
+
+	public void cleanup() {
+		System.out.println("自定义配置方法--销毁--destroy-method");
 	}
 
 	public void destroy() throws Exception {
