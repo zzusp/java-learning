@@ -1,4 +1,7 @@
-package lifecycle.service;
+package aware.service;
+
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * @author Aaron.Sun
@@ -6,7 +9,7 @@ package lifecycle.service;
  * @date Created in 11:48 2020/5/15
  * @modified By
  */
-public interface UserService {
+public interface UserService extends ApplicationContextAware, BeanNameAware {
 
 	/**
 	 * 由姓名查找用户

@@ -119,7 +119,6 @@ spring容器可以为有依赖的bean自动装配依赖关系。你可以通过s
  byType  | 如果容器中恰好存在一个该属性类型的bean，则使该属性自动装配。如果存在多个，则将引发致命异常，这表明您可能不对该bean使用`byType`自动装配。如果没有匹配的bean，则什么都不会发生（未设置该属性）
  constructor  | 与`byType`类似，但适用于构造函数参数。如果容器中不存在构造函数参数类型的一个bean，则将引发致命错误。
 
-
 ## Bean的作用域（Bean Scopes）
 创建一个`bean definition`时，实际将创建一个配方（recipe），该配方用于创建`bean definition`中定义的类的实例。
 `bean definition`就是配方的想法很重要，因为它意味着与类一样，您可以从一个配方中创建许多对象实例。
@@ -136,25 +135,3 @@ spring支持6种bean的作用域
  session  | 将单个bean定义的作用域限定为HTTP会话的生命周期
  application  | 将单个bean定义的作用域限定为ServletContext的生命周期
  websocket  | 将单个bean定义的作用域限定为WebSocket的生命周期。
-
-## Bean的生命周期回调（Lifecycle Callbacks）
-为管理spring容器中bean的生命周期，您可以实现Spring提供的`InitializingBean`和`DisposableBean`接口。
-容器提供了`afterPropertiesSet()`方法（bean初始化回调），`destroy()`方法（bean销毁回调），供在Bean的初始化和销毁时，执行某些操作。
-
-在容器内部，spring使用`BeanPostProcessor`接口的实现，来处理接口能找到的所有回调，并调用对应的回调方法。
-如果您需要Spring默认不提供的自定义功能或其他生命周期行为，，您可以自己实现`BeanPostProcessor`。
-
-除了上述的初始化和销毁的回调，spring管理的对象也可以通过实现`Lifecycle`接口，在容器自身的生命周期的驱动下参与启动和关闭过程。
-
-配置生命周期的方式分为以下三种：
-1. 注解（`@PostConstruct` `@PreDestroy`）
-2. 回调接口定义的方法（`afterPropertiesSet()` `destroy()`）
-3. 自定义配置方法（`init-method` `destroy-method`）
-
-三种生命周期配置方式的调用先后顺序：
-1. 注解（`@PostConstruct`）
-2. 回调接口定义的方法（`afterPropertiesSet()`）
-3. 自定义配置方法（`init-method`）
-4. 回调接口定义的方法（`destroy()`）
-5. 自定义配置方法（`destroy-method`）
-6. 注解（`@PreDestroy`）
