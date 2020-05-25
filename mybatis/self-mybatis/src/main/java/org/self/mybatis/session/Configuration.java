@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * @author Aaron.Sun
- * @description 记录主要配置的配置类
+ * @description 记录mybatis主要配置的核心配置类
  * @date Created in 14:28 2020/5/22
  * @modified By
  */

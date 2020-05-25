@@ -2,7 +2,7 @@ package org.self.mybatis.session;
 
 /**
  * @author Aaron.Sun
- * @description
+ * @description 执行器类型
  * @date Created in 17:12 2020/5/24
  * @modified By
  */
