@@ -15,7 +15,7 @@ import java.util.Properties;
 
 /**
  * @author Aaron.Sun
- * @description mybatis测试类
+ * @description self-mybatis测试类
  * @date Created in 9:13 2020/5/22
  * @modified By
  */

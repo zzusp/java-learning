@@ -51,14 +51,14 @@ self-mybatis（简化版mybatis，主要用于学习mybatis的加载机制和执
                ├── TransactionException -- 事务一场
                └── TransactionFactory -- 事务工厂接口（创建事务）
 ```
-### 运行机制
+### 配置及运行机制
 1. （开发人员实现）传入`数据源`和`事务工厂`，创建环境配置对象`Environment`
 2. （开发人员实现）创建核心配置类对象`configuration`
 3. （开发人员实现）添加mapper到配置类
     1. 将mapper注册到mybatis中（代码体现在`MapperRegistry`类的`knownMappers`集合，`knownMappers`集合的`key`为接口类型，`value`为代理工厂对象）
     2. 完成接口方法注解中的sql语句的解析，并存入新建的`MappedStatement`对象
     3. 将`MappedStatement`对象存入核心配置类`configuration`中
-4. （开发人员实现）创建sessionFactory
+4. （开发人员实现）创建`sqlSessionFactory`
 5. （开发人员实现）从`sqlSessionFactory`中打开一个`sqlSession`
     1. 由`Environment`中的`数据源`和`事务工厂`创建一个事务对象`tx`
     2. 由`tx`创建一个执行器`executor`

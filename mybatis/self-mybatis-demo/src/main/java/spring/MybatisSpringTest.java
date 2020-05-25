@@ -6,7 +6,7 @@ import spring.mapper.UserMapper;
 
 /**
  * @author Aaron.Sun
- * @description mybatis-spring测试类
+ * @description self-mybatis-spring测试类
  * @date Created in 9:14 2020/5/22
  * @modified By
  */

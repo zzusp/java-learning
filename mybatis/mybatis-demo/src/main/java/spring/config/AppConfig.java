@@ -7,7 +7,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import spring.mapper.UserMapper;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -37,9 +36,6 @@ public class AppConfig {
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 		factoryBean.setDataSource(dataSource());
-		org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-		configuration.addMapper(UserMapper.class);
-		factoryBean.setConfiguration(configuration);
 		return factoryBean.getObject();
 	}
 

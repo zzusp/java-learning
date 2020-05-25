@@ -5,6 +5,6 @@
 * [self-mybatis](self-mybatis/SELF-MYBATIS.md)
     * 自实现简化mybatis，了解mybatis的运行机制
 * [self-mybatis-spring](self-mybatis-spring/SELF-MYBATIS-SPRING.md)
-    * 自实现简化mybatis-spring，了解mybatis如何与spring结合
+    * 自实现简化mybatis-spring，了解mybatis如何与spring整合，以及如何被加载的
 * [self-mybatis-demo](self-mybatis-demo/SELF-MYBATIS-DEMO.md)
-    * 简化后代码的测试
+    * 自实现简化后的mybatis和mybatis-spring的测试
