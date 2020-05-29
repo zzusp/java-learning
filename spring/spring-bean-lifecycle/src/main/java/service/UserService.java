@@ -1,7 +1,5 @@
 package service;
 
-import org.springframework.context.SmartLifecycle;
-
 /**
  * @author Aaron.Sun
  * @description 用户服务接口

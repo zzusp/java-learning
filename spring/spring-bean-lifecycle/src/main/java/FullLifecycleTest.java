@@ -1,7 +1,7 @@
 import config.AppConfig;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import service.UserService;
 import service.impl.UserServiceImpl;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * @author Aaron.Sun
