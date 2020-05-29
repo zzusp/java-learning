@@ -1,0 +1,28 @@
+## spring bean的完整生命周期
+* BeanFactoryPostProcessor接口实现类的实例化
+* 调用BeanFactoryPostProcessor接口的postProcessBeanFactory()方法，在需要修改`bean`实例的配置元数据时使用（如：数据源配置（即将${datasource.url}等替换为properties文件中对应的值））
+* BeanPostProcessor接口实现类的实例化
+* InstantiationAwareBeanPostProcessorAdapter接口(BeanPostProcessor接口的子接口)实现类的实例化
+* 实例化bean，对象的构造方法被调用
+* 通过setter注入bean对象的属性
+* 调用InstantiationAwareBeanPostProcessorAdapter接口的postProcessProperties()方法
+* Aware接口（感知接口）
+    * BeanNameAware接口的setBeanName()方法被调用
+    * BeanFactoryAware接口的setBeanFactory()方法被调用
+    * ApplicationContextAware接口的setApplicationContext()方法被调用
+* 调用BeanPostProcessor接口的postProcessBeforeInitialization()方法
+* 调用InstantiationAwareBeanPostProcessorAdapter接口的postProcessBeforeInitialization()方法
+* 生命周期初始化方法
+    * 配置@PostContruct注解的方法被调用
+    * InitializationBean接口的afterPropertiesSet()方法被调用
+    * init-method配置的方法被调用
+* 调用BeanPostProcessor接口的postProcessAfterInitialization()方法
+* 调用InstantiationAwareBeanPostProcessorAdapt接口的postProcessAfterInitialization()方法
+* SmartLifecyle接口的相关方法（可不用特别关注）
+* ========容器初始化完成========
+* ========容器开始关闭========
+* SmartLifecyle接口的相关方法（可不用特别关注）
+* 生命周期销毁方法
+      * 配置@Predestory注解的方法被调用
+      * DiposibleBean接口的destory()方法被调用
+      * destory-method配置的方法被调用

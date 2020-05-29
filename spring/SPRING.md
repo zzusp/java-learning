@@ -5,3 +5,4 @@
 * [spring容器拓展点](extension-point/EXTENSION-POINT.md)
 * [spring-bean-nature](spring-bean-nature/SPRING-BEAN-NATURE.md)
 * [spring-bean-factory](spring-bean-factory/SPRING-BEAN-FACTORY.md)
+* [bean完整的生命周期](spring-bean-lifecycle/SPRING-BEAN-LIFECYCLE.md)
