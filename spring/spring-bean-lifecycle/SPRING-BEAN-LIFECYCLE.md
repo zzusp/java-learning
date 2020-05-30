@@ -14,7 +14,7 @@
 * 调用InstantiationAwareBeanPostProcessorAdapter接口的postProcessBeforeInitialization()方法
 * 生命周期初始化方法
     * 配置@PostContruct注解的方法被调用
-    * InitializationBean接口的afterPropertiesSet()方法被调用
+    * InitializingBean接口的afterPropertiesSet()方法被调用
     * init-method配置的方法被调用
 * 调用BeanPostProcessor接口的postProcessAfterInitialization()方法
 * 调用InstantiationAwareBeanPostProcessorAdapt接口的postProcessAfterInitialization()方法
