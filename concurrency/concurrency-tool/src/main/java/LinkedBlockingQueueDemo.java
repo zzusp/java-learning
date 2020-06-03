@@ -1,4 +1,4 @@
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Aaron.Sun
@@ -6,11 +6,11 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @date Created in 11:03 2020/5/14
  * @modified By
  */
-public class ArrayBlockingQueueDemo {
+public class LinkedBlockingQueueDemo {
 	private final static int MESSAGE_SUM = 20;
 	private final static long PRODUCER_SPEED = 100;
 	private final static long CONSUMER_SPEED = 500;
-	private static ArrayBlockingQueue<String> messageList = new ArrayBlockingQueue<>(10);
+	private static LinkedBlockingQueue<String> messageList = new LinkedBlockingQueue<>(10);
 
 	static class Producer implements Runnable {
 
