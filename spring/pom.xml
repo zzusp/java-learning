@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.example</groupId>
+	<artifactId>spring</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<modules>
+		<module>spring-ioc</module>
+        <module>spring-aop</module>
+        <module>proxy</module>
+		<module>extension-point</module>
+        <module>spring-bean-nature</module>
+        <module>spring-bean-factory</module>
+        <module>spring-bean-lifecycle</module>
+    </modules>
+	<!-- 集中定义依赖版本号 -->
+	<properties>
+		<spring.version>5.2.6.RELEASE</spring.version>
+		<aspectj.version>1.9.5</aspectj.version>
+		<cglib.version>3.3.0</cglib.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- spring-context -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- aspectj -->
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectj.version}</version>
+			</dependency>
+			<!-- cglib代理（代理演示） -->
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>${cglib.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

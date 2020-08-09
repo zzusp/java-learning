@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.example</groupId>
+	<artifactId>mybatis</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<modules>
+		<module>mybatis-demo</module>
+		<module>self-mybatis</module>
+		<module>self-mybatis-demo</module>
+		<module>self-mybatis-spring</module>
+	</modules>
+	<!-- 集中定义依赖版本号 -->
+	<properties>
+		<mybatis.version>3.5.4</mybatis.version>
+		<mybatis-spring.version>2.0.4</mybatis-spring.version>
+		<spring.version>5.2.6.RELEASE</spring.version>
+		<druid.version>1.1.22</druid.version>
+		<mysql.version>8.0.20</mysql.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- mybatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+			<!-- mybatis-spring -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis-spring.version}</version>
+			</dependency>
+			<!-- spring-context -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- spring-jdbc -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- druid -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+			<!-- mysql -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+			</dependency>
+			<!-- 自实现的mybatis -->
+			<dependency>
+				<groupId>mybatis</groupId>
+				<artifactId>self-mybatis</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- 自实现的mybatis-spring -->
+			<dependency>
+				<groupId>mybatis</groupId>
+				<artifactId>self-mybatis-spring</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+</project>

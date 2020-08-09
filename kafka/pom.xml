@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.example</groupId>
+	<artifactId>kafka</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<modules>
+		<module>kafka-demo</module>
+	</modules>
+	<!-- 集中定义依赖版本号 -->
+	<properties>
+		<kafka.version>2.5.0</kafka.version>
+		<spring.version>5.2.6.RELEASE</spring.version>
+		<spring-kafka.version>2.5.1.RELEASE</spring-kafka.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- kafka -->
+			<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka_2.13</artifactId>
+				<version>${kafka.version}</version>
+			</dependency>
+			<!-- kafka-clients -->
+			<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka-clients</artifactId>
+				<version>${kafka.version}</version>
+			</dependency>
+			<!-- spring-context -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- spring-kafka -->
+			<dependency>
+				<groupId>org.springframework.kafka</groupId>
+				<artifactId>spring-kafka</artifactId>
+				<version>${spring-kafka.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+</project>

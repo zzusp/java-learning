@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>mybatis</artifactId>
+		<groupId>org.example</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>self-mybatis-demo</artifactId>
+
+	<dependencies>
+		<!-- 自实现的mybatis -->
+		<dependency>
+			<groupId>mybatis</groupId>
+			<artifactId>self-mybatis</artifactId>
+		</dependency>
+		<!-- 自实现的mybatis-spring -->
+		<dependency>
+			<groupId>mybatis</groupId>
+			<artifactId>self-mybatis-spring</artifactId>
+		</dependency>
+		<!-- druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>
