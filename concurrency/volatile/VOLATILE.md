@@ -4,7 +4,7 @@
 3. `有序性`：
    1. 重排序（编译阶段、指令优化阶段）时，volatile修饰变量之前的代码，不能调整到该变量的后面
    2. 重排序（编译阶段、指令优化阶段）时，volatile修饰变量之后的代码，不能调整到该变量的前面
-   3. as-if-seria
+   3. as-if-serial
    4. happens-before
    
 # volatile在JMM及硬件内存架构上的体现
@@ -14,12 +14,12 @@
    需要获取该变量，只能从主内存中重新读取，从而保证了`可见性`
 
 # volatile与synchronized的区别
-1. `使用`：volatile只能修饰变量，synchronized只能修饰方法和语句块
+1. `使用`：volatile只能修饰变量，synchronized可以使用在变量、方法、和类级别的
 2. `原子性`：synchronized可以保证原子性，volatile不能保证原子性
 3. `可见性`：都可以保证可见性，但实现原理不同
    1. volatile对变量加了lock（汇编）
-   2. synchronized使用monitorEnter和monitorexit
-4. `有序性`：volatile能保证有序，synchronized可以保证有序性，但是代价（重量级）并发退化到串行
+   2. synchronized使用monitorenter和monitorexit
+4. `有序性`：volatile能保证有序，synchronized可以保证有序性，但是代价（重量级）并发退化到串行（synchronized标记的变量可以被编译器优化）
 5. `其他`：synchronized会引起阻塞，volatile不会引起阻塞
 
    
