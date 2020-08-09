@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="candidateService" class="org.activiti.service.impl.CandidateServiceImpl"/>
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="jdbcUrl" value="jdbc:mysql://122.152.221.117:3306/activiti"/>
+		<property name="username" value="activiti"/>
+		<property name="password" value="12345678"/>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+<!--	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--		<property name="dataSource" ref="dataSource"/>-->
+<!--		&lt;!&ndash; 自动扫描mapping.xml文件 &ndash;&gt;-->
+<!--		<property name="mapperLocations" value="classpath:mapping/*.xml"/>-->
+<!--	</bean>-->
+
+	<!-- 装配dao接口 -->
+<!--	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--		&lt;!&ndash; DAO接口所在包名，Spring会自动查找其下的类 &ndash;&gt;-->
+<!--		<property name="basePackage" value="org.activiti.dao"/>-->
+<!--		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
+<!--	</bean>-->
+
+	<!-- 流程引擎配置 -->
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="transactionManager" ref="transactionManager"/>
+		<!--
+			设置工作流引擎启动和关闭时，如何处理数据库
+			false(默认)：检查数据库表的版本和依赖库的版本，如果版本不匹配则抛出异常
+			true：构建流程引擎时，执行检查，如果需要就执行更新。如果表不存在，就创建
+			create-drop：构建流程引擎时创建数据库，关闭流程引擎时删除这些表
+		 -->
+		<property name="databaseSchemaUpdate" value="true"/>
+		<!--
+			自动部署流程
+			default
+			fail-on-no-process
+			never-fail
+			resource-parent-folder
+			single-resource
+		 -->
+		<property name="deploymentMode" value="never-fail"/>
+<!--		<property name="deploymentResources">-->
+<!--			<list>-->
+<!--				<value>classpath:processes/*.xml</value>-->
+<!--			</list>-->
+<!--		</property>-->
+		<property name="expressionManager" ref="expressionManager"/>
+	</bean>
+	<!--工作流引擎 -->
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	<!--原生服务 -->
+	<bean id="repositoryService" factory-bean="processEngine"
+		  factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine"
+		  factory-method="getRuntimeService" />
+	<bean id="taskService" factory-bean="processEngine"
+		  factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine"
+		  factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine"
+		  factory-method="getManagementService" />
+	<!-- 自定义表达式管理。未返回未被封装的、准确的自定义异常信息 -->
+	<bean id="expressionManager" class="org.activiti.engine.impl.el.CustomExpressionManager">
+		<constructor-arg name="beans">
+			<map>
+				<entry key="candidateService" value-ref="candidateService"/>
+			</map>
+		</constructor-arg>
+	</bean>
+
+</beans>
