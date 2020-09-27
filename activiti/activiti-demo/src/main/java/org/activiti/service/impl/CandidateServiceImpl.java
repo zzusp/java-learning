@@ -18,6 +18,7 @@ public class CandidateServiceImpl implements CandidateService {
 	 */
 	@Override
 	public String getCandidateUser() {
-		throw new WorkflowException("12312312");
+		return "123";
+//		throw new WorkflowException("12312312");
 	}
 }
