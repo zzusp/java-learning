@@ -1,5 +1,7 @@
 package org.activiti.service;
 
+import java.util.List;
+
 /**
  * @author Aaron.Sun
  * @description 自定义候选人候选组服务接口
@@ -13,6 +15,6 @@ public interface CandidateService {
 	 *
 	 * @return 候选人
 	 */
-	String getCandidateUser();
+	String getCandidateUser(List<String> paramKeys);
 
 }

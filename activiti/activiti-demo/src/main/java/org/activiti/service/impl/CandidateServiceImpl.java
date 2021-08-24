@@ -2,6 +2,9 @@ package org.activiti.service.impl;
 
 import org.activiti.engine.exception.WorkflowException;
 import org.activiti.service.CandidateService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Aaron.Sun
@@ -9,6 +12,7 @@ import org.activiti.service.CandidateService;
  * @date Created in 19:16 2020/8/9
  * @modified By
  */
+@Service
 public class CandidateServiceImpl implements CandidateService {
 
 	/**
@@ -17,8 +21,11 @@ public class CandidateServiceImpl implements CandidateService {
 	 * @return 候选人
 	 */
 	@Override
-	public String getCandidateUser() {
-		return "123";
-//		throw new WorkflowException("12312312");
+	public String getCandidateUser(List<String> paramKeys) {
+//		return "123";
+		for (String key : paramKeys) {
+			System.out.println(key);
+		}
+		throw new WorkflowException("12312312");
 	}
 }

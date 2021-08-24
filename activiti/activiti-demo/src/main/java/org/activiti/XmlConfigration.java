@@ -17,7 +17,9 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.ByteArrayInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Aaron.Sun
@@ -32,20 +34,25 @@ public class XmlConfigration {
 		// 通过name获取bean
 		RepositoryService repositoryService = context.getBean(RepositoryService.class);
 		// 创建一个部署对象
-//		Deployment deployment = repositoryService.createDeployment()
-//				.name("请假流程")
-//				.key("holiday")
-//				.addClasspathResource("processes/holiday.bpmn20.xml")
-//				.deploy();
-//		System.out.println("部署ID：" + deployment.getId());
-//		System.out.println("部署名称：" + deployment.getName());
-		// 得到RuntimeService方法
+		Deployment deployment = repositoryService.createDeployment()
+				.name("请假流程")
+				.key("holiday")
+				.addClasspathResource("processes/holiday.bpmn20.xml")
+				.deploy();
+		System.out.println("部署ID：" + deployment.getId());
+		System.out.println("部署名称：" + deployment.getName());
+
+//		 得到RuntimeService方法
 //		RuntimeService runtimeService = context.getBean(RuntimeService.class);
-//		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holiday");
+//		Map<String, Object> params = new HashMap<>();
+//		params.put("name", "张三");
+//		params.put("age", 14);
+//		params.put("gender", "男");
+//		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holiday", params);
 //		System.out.println(processInstance.getId());
 //		System.out.println(processInstance.getProcessDefinitionId());
 //		System.out.println(processInstance.getProcessDefinitionKey());
-
+//
 //		TaskService taskService = context.getBean(TaskService.class);
 //		List<Task> list = taskService.createTaskQuery().processDefinitionKey("holiday").list();
 //		for (Task task : list) {
@@ -72,14 +79,14 @@ public class XmlConfigration {
 //		System.out.println(processInstance.getProcessDefinitionId());
 //		System.out.println(processInstance.getProcessDefinitionKey());
 
-		TaskService taskService = context.getBean(TaskService.class);
-		List<Task> list = taskService.createTaskQuery().processDefinitionKey("Process_1").list();
-		for (Task task : list) {
-			System.out.println(task.getId());
-			System.out.println(task.getName());
-		}
-		taskService.setAssignee(list.get(0).getId(), "1234");
-		taskService.complete(list.get(0).getId());
+//		TaskService taskService = context.getBean(TaskService.class);
+//		List<Task> list = taskService.createTaskQuery().processDefinitionKey("Process_1").list();
+//		for (Task task : list) {
+//			System.out.println(task.getId());
+//			System.out.println(task.getName());
+//		}
+//		taskService.setAssignee(list.get(0).getId(), "1234");
+//		taskService.complete(list.get(0).getId());
 	}
 
 	private BpmnModel deployeFromStr() {
