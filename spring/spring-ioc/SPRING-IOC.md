@@ -4,7 +4,7 @@ IoC也称为依赖注入（DI）。在此过程中，对象仅通过构造函数
 诸如服务定位器模式之类的方法来控制其依赖项的实例化或位置的bean本身的逆过程（因此称为Inversion of Control）。
 
 在`org.springframework.beans`和`org.springframework.context`包是Spring框架的IoC容器的基础。该`BeanFactory`界面提供了一
-种高级配置机制，能够管理任何类型的对象。`ApplicationContext`是的子接口`BeanFactory`。它增加了：
+种高级配置机制，能够管理任何类型的对象。`ApplicationContext`是`BeanFactory`的子接口。它增加了：
 * 与Spring的AOP功能轻松集成
 * 消息资源处理（用于国际化）
 * 活动发布(Event publication)
