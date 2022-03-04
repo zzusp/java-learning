@@ -28,7 +28,7 @@
 ## Follower故障及恢复场景
 * Follower发生故障后会被临时踢出ISR（进入OSR）
 * 这个期间Leader和正常的Follower继续接收数据
-* 待故障Follower恢复后，Follower会读取本地磁盘记录的上次的HW，并将log文键高于HW的部分截取掉，从HW开始向Leader进行同步
+* 待故障Follower恢复后，Follower会读取本地磁盘记录的上次的HW，并将log文件高于HW的部分截取掉，从HW开始向Leader进行同步
 * 等到故障Follower的LEO大于等于该Partition的HW，即Follower追上Leader之后，就可以重新加入ISR了
 
 ## Leader故障
