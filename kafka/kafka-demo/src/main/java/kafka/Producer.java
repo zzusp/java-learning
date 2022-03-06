@@ -43,13 +43,13 @@ public class Producer {
 
         // ---------------- 吞吐量提高 ----------------
 
-        // 每批消息的最大值，单位字节。默认16384（int），达到最大值时发送该批消息
+        // 每批消息的最大值，单位字节。默认16384（16KB int），达到最大值时发送该批消息
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
         // 发送消息的时间间隔，单位毫秒。每隔一段时间就发送一批消息，一般不超过100ms
         properties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
         // 压缩类型，选项：'gzip', 'snappy', 'lz4', 'zstd'。默认producer，其意思是保留由生产者设置的原始压缩编解码器
         properties.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "producer");
-        // 待发送消息总大小限制，单位字节。默认33554432（long），超出限制，则抛出异常
+        // 待发送消息总大小限制，单位字节。默认33554432（32MB long），超出限制，则抛出异常
         properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432L);
 
         // ---------------- 保证消息不丢失也不重复 ----------------
