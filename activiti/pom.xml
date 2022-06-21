@@ -17,7 +17,7 @@
 		<activiti-spring.version>7.1.0.M6</activiti-spring.version>
 		<spring.version>5.2.6.RELEASE</spring.version>
 		<mybatis-spring.version>2.0.4</mybatis-spring.version>
-		<mysql.version>8.0.21</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
 		<hikaricp.version>3.4.5</hikaricp.version>
 	</properties>
 
