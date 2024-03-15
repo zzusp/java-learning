@@ -1,7 +1,7 @@
 # kafka
 * [快速启动](./QUICKSTART.md)
 
-## 组件
+## 组件及核心模块
 * 生产者（producer）
     * producer
         * DefaultPartitioner（默认分区器）负责判断消息发往哪个分区
@@ -63,29 +63,33 @@
 
 ## 提高吞吐量
 ```text
-// ---------------- 生产者配置 ----------------
+// ---------------- 生产者 ----------------
 
 // 每批消息的最大值，单位字节。默认16384（16KB int），达到最大值时发送该批消息
 properties.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
-// 发送消息的时间间隔，单位毫秒。每隔一段时间就发送一批消息，一般不超过100ms
+// 发送消息的时间间隔，单位毫秒。每隔一段时间就发送一批消息，一般不超过100ms（5-100ms）
 properties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
 // 压缩类型，选项：'gzip', 'snappy', 'lz4', 'zstd'。默认producer，其意思是保留由生产者设置的原始压缩编解码器
 properties.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "producer");
-// 待发送消息总大小限制，单位字节。默认33554432（32MB long），超出限制，则抛出异常
+// 待发送消息总大小限制，单位字节。默认33554432（32MB long），超出限制，则抛出异常。可调整为64MB
 properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432L);
+// 生产者发往broker每个请求消息的最大值，针对topic级别设置消息总体大小，默认1048576（1MB int）
+properties.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, 1048576);
 
-// ---------------- Broker配置 ----------------
+// ---------------- Broker ----------------
 
 增加topic的分区数
 
-// ---------------- 消费者配置 ----------------
+// broker端接收每批次消息的最大值，默认1MB
+message.max.bytes
+// 副本同步数据，每批次消息最大值，默认1MB
+replica.fetch.max.bytes
+
+// ---------------- 消费者 ----------------
 
 增加消费者数量
+增加下游消费者的处理能力
 
-// 每批次消息返回的最小数据量，默认1，单位byte
-properties.put(ConsumerConfig.FETCH_MIN_BYTES_CONFIG, 1);
-// 满足最小数据量的最大等待时长，超时未满足则直接返回，默认500，单位毫秒
-properties.put(ConsumerConfig.FETCH_MAX_WAIT_MS_CONFIG, 500);
 // 每批次消息返回的最大数据量，默认57671680（55MB），单位byte。最小不能小于1024（1KB）
 properties.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, 57671680);
 // 每次拉取数据返回消息的最大条数，默认500
@@ -96,7 +100,7 @@ properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 
 ## 消息精确一次（不丢失且不重复）
 ```text
-// ---------------- 生产者配置 ----------------
+// ---------------- 生产者 ----------------
 
 // broker的leader的响应配置，all（-1等同all）表示将等待全套同步副本（ISR）确认记录。默认all
 properties.put(ProducerConfig.ACKS_CONFIG, "all");
@@ -111,14 +115,28 @@ properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
 // 事务ID，需全局唯一
 properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "xxxxx");
 
+// ---------------- Broker ----------------
 
-// ---------------- 消费者配置 ----------------
-将消费过程和提交offset过程做原子绑定，所以需要使用事务，且下游消费者必须支持事务
+分区副本>=2（--replication-factor 2）
+ISR应答的最小副本数量>=2（min.insync.replicas=2）
+
+# 主题分区的副本数，默认-1。-1时会使用default.replication.factor配置的值（默认1）。生产环境建议>=3
+KAFKA_REPLICATION_FACTOR: 3
+# 偏移量主题的副本数，默认为3。不要小于集群大小
+KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+# ISR中最小副本数，默认1。当ISR中副本数小于该值，则消息发送失败
+KAFKA_MIN_INSYNC_REPLICAS: 2
+
+// ---------------- 消费者 ----------------
+需要将消费过程和提交offset过程做原子绑定，所以需要使用事务，且下游消费者必须支持事务（mysql、kafka）
+
+// 手动提交offset
+properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 ```
 
 ## 消息有序
 ```text
-// ---------------- 生产者配置 ----------------
+// ---------------- 生产者 ----------------
 
 // 在阻塞之前，客户端在单个连接上发送的最大未确认请求数。默认5
 // 如果为1则不需要判断是否开启幂等性，即可保证消息有序

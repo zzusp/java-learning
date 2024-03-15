@@ -51,6 +51,8 @@ public class Producer {
         properties.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "producer");
         // 待发送消息总大小限制，单位字节。默认33554432（32MB long），超出限制，则抛出异常
         properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432L);
+        // 生产者发往broker每个请求消息的最大值，针对topic级别设置消息总体大小，默认1048576（1MB int）
+        properties.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, 1048576);
 
         // ---------------- 保证消息不丢失也不重复 ----------------
 

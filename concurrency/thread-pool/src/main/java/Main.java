@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -80,17 +81,33 @@ public class Main {
 		// 接收线程返回的结果
 		List<Future<String>> futures = new ArrayList<>();
 		for (int i = 0; i < 13; i++) {
-			Future<String> future = completionService.submit(() -> Thread.currentThread().getName() + " is running");
+			Future<String> future = completionService.submit(() -> {
+				try {
+					Thread.sleep((long) (Math.random() * 10) * 1000L);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return Thread.currentThread().getName() + " is running";
+			});
 			futures.add(future);
 		}
-		// 遍历线程返回结果
-		for (Future<String> future : futures) {
+		threadPool.shutdown();
+		// 遍历线程返回结果（按照任务执行速度）
+		for (int i = 0; i < 13; i++) {
 			try {
-				System.out.println(future.get());
+				System.out.println(completionService.take().get());
 			} catch (InterruptedException | ExecutionException e) {
 				e.printStackTrace();
 			}
 		}
+		// 遍历线程返回结果（按照任务提交顺序）
+//		for (Future<String> future : futures) {
+//			try {
+//				System.out.println(future.get());
+//			} catch (InterruptedException | ExecutionException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		threadPool.shutdown();
 	}
 
@@ -106,7 +123,14 @@ public class Main {
 		// 接收线程返回的结果
 		List<CompletableFuture<String>> futures = new ArrayList<>();
 		for (int i = 0; i < 13; i++) {
-			futures.add(CompletableFuture.supplyAsync(() -> Thread.currentThread().getName() + " is running", threadPool));
+			futures.add(CompletableFuture.supplyAsync(() -> {
+				try {
+					Thread.sleep((long) (Math.random() * 10) * 1000L);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return Thread.currentThread().getName() + " is running";
+			}, threadPool));
 		}
 		// 遍历线程返回结果
 		futures.forEach((future) -> {
@@ -121,10 +145,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		Main main = new Main();
-		main.testThreadPool();
-		main.testThreadPoolWithFuture();
+//		main.testThreadPool();
+//		main.testThreadPoolWithFuture();
 		main.testThreadPoolWithCompletionService();
-		main.testThreadPoolWithCompletableFuture();
+//		main.testThreadPoolWithCompletableFuture();
 	}
 
 }

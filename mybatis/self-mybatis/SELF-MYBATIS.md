@@ -46,9 +46,9 @@ self-mybatis（简化版mybatis，主要用于学习mybatis的加载机制和执
                |    ├── ManagedTransaction -- 主事务（默认事务，未指定事务时使用）
                |    └── ManagedTransactionFactory -- 主事务（默认事务）工厂
                ├── JdbcTransaction -- Jdbc事务
-               ├── JdbcTransactionFactory -- Jdbc事务工程
+               ├── JdbcTransactionFactory -- Jdbc事务工厂
                ├── Transaction -- 事务接口（创建数据库连接，提交事务，事务回滚等方法）
-               ├── TransactionException -- 事务一场
+               ├── TransactionException -- 事务异常
                └── TransactionFactory -- 事务工厂接口（创建事务）
 ```
 ### 配置及运行机制
