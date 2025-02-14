@@ -195,3 +195,27 @@ properties.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 5);
     * 自定义策略（org.apache.kafka.clients.consumer.ConsumerPartitionAssignor）
         * 实现ConsumerPartitionAssignor接口，可创建自定义分区策略
 
+## 经验教训
+* 生产者长时间不发送消息，会被broker视为离线，生产者相关信息（如事务ID）会被清除，再次发送消息时会报错
+  * 报错信息：Caused by: org.apache.kafka.common.errors.InvalidPidMappingException: The producer attempted to use a producer id which is not currently assigned to its transactional id
+  * 修复方案：升级spring-kafka版本为2.5.8以上版本，通过设置maxAge参数
+  * 参考链接：https://stackoverflow.com/questions/59398186/facing-org-apache-kafka-common-errors-invalidpidmappingexception-in-spring-kafka
+* 消费者消费前，一定要判断消息是否已被消费过！！！不要过于相信kafka自身的精确一次消费的配置
+* 单条消息消费时间过长，可能导致消费过程中，消费者组触发再平衡，从而出现重复消费的情况
+   * 一定要在消费前判断消息是否已被消费过！！！
+   * 尽可能缩短单个消息的消费时长
+   * 将配置参数max-poll-interval-ms配置的大一些
+      ```
+       consumer:
+         group-id: xxx-group
+         auto-offset-reset: earliest
+         key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+         value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+         max-poll-records: 1 # 一次只拉取 1 条消息，避免长时间未调用 poll()。如果 max-poll-records=500，而每条消息都要 1 小时，那 Kafka 可能会等待 500 小时，然后超时重试
+         properties:
+           max-poll-interval-ms: 5400000 # 允许 poll() 之间最大间隔 1.5 小时。批量计算UPR比较耗时，1000条数据集约1小时，如果未处理完就触发poll可能会导致重复消费
+           session-timeout-ms: 300000  # 允许消费者 5 分钟无响应
+           heartbeat-interval-ms: 60000  # 每 60 秒发送一次心跳，防止被踢出
+      ```
+* Topic的分区数应大于等于消费者组下面的消费者的数量，否则会出现部分消费者空闲的情况
+
